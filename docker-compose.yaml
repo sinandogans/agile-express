@@ -1,0 +1,116 @@
+services:
+  # ----------------------------
+  # PostgreSQL (İlişkisel Veritabanı)
+  # ----------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: agile_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: agile_project_db
+    ports:
+      - "5440:5432"
+    volumes:
+      - ./docker-data/postgres:/var/lib/postgresql/data
+    networks:
+      - agile-net
+
+  # ----------------------------
+  # MongoDB (Doküman Veritabanı & Log/Search)
+  # ----------------------------
+  mongo:
+    image: mongo:7.0
+    container_name: agile_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - agile-net
+
+  # ----------------------------
+  # Redis (Cache & Session)
+  # ----------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: agile_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker-data/redis:/data
+    command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - agile-net
+
+  # ----------------------------
+  # RabbitMQ (Message Broker)
+  # ----------------------------
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: agile_rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password123
+    ports:
+      - "5672:5672"   # Uygulama bağlantısı için
+      - "15672:15672" # Yönetim Paneli (UI) için
+    volumes:
+      - ./docker-data/rabbitmq:/var/lib/rabbitmq
+    networks:
+      - agile-net
+
+  # ----------------------------
+  # LDAP (Kimlik Doğrulama - OpenLDAP)
+  # ----------------------------
+  openldap:
+    image: osixia/openldap:latest
+    container_name: agile_ldap
+    restart: always
+    environment:
+      LDAP_ORGANISATION: "AgileCompany"
+      LDAP_DOMAIN: "agile.com"
+      LDAP_ADMIN_PASSWORD: "password123"
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - ./docker-data/ldap/var:/var/lib/ldap
+      - ./docker-data/ldap/config:/etc/ldap/slapd.d
+      # --- YENİ EKLENEN SATIR ---
+      # Bu klasördeki .ldif dosyaları ilk açılışta import edilir
+      - ./ldap:/container/service/slapd/assets/config/bootstrap/ldif/custom
+    command: --copy-service
+    networks:
+      - agile-net
+
+  # ----------------------------
+  # phpLDAPadmin (LDAP Görsel Arayüzü)
+  # ----------------------------
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: agile_phpldapadmin
+    restart: always
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: openldap
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "6443:80"
+    depends_on:
+      - openldap
+    networks:
+      - agile-net
+
+networks:
+  agile-net:
+    driver: bridge
+
+volumes:
+  mongo_data:

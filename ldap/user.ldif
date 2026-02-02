@@ -1,0 +1,105 @@
+# 1. Önce Users grubunu oluştur (Eğer yoksa hata vermez, varsa geçer)
+dn: ou=users,dc=agile,dc=com
+objectClass: organizationalUnit
+ou: users
+
+# 2. Kullanıcılar
+dn: uid=sinan2,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan2 Dogan2
+sn: Dogan2
+givenName: Sinan2
+uid: sinan2
+mail: sinan2@gmail.com
+title: manager
+# Şifre: password123 (SSHA Hash)
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan3,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan3 Dogan3
+sn: Dogan3
+givenName: Sinan3
+uid: sinan3
+mail: sinan3@gmail.com
+title: manager
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan4,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan4 Dogan4
+sn: Dogan4
+givenName: Sinan4
+uid: sinan4
+mail: sinan4@gmail.com
+title: team_lead
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan5,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan5 Dogan5
+sn: Dogan5
+givenName: Sinan5
+uid: sinan5
+mail: sinan5@gmail.com
+title: team_lead
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan6,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan6 Dogan6
+sn: Dogan6
+givenName: Sinan6
+uid: sinan6
+mail: sinan6@gmail.com
+title: team_member
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan7,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan7 Dogan7
+sn: Dogan7
+givenName: Sinan7
+uid: sinan7
+mail: sinan7@gmail.com
+title: team_member
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan8,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan8 Dogan8
+sn: Dogan8
+givenName: Sinan8
+uid: sinan8
+mail: sinan8@gmail.com
+title: team_member
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan9,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan9 Dogan9
+sn: Dogan9
+givenName: Sinan9
+uid: sinan9
+mail: sinan9@gmail.com
+title: team_member
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
+
+dn: uid=sinan10,ou=users,dc=agile,dc=com
+objectClass: inetOrgPerson
+objectClass: top
+cn: Sinan10 Dogan10
+sn: Dogan10
+givenName: Sinan10
+uid: sinan10
+mail: sinan10@gmail.com
+title: team_member
+userPassword: {SSHA}yK9/k3Qx8F7/r7sT/K9yK9/k3Qx8F7/r
